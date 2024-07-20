@@ -1,13 +1,276 @@
 <!DOCTYPE html>
 <html lang = "en">
     <head lang="en">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>PGNTA: 17 DOF Humanoid Arduino Robot</title>
-
+        <link rel="stylesheet" href="styles.css">
 
     </head>
     <body>
-        <header>
-            <h1> PGNTA: 17 DOF Humanoid Ardunio Robot</h1>
+        <header >
+            <h1 > PGNTA: 17 DOF Humanoid Ardunio Robot</h1>
         </header>
+        
+
+        <ul>
+            <li><a href="#a">Introduction</a></li>
+            <li><a href="#b">Project Overview</a></li>
+            <li><a href="#c">Development Process</a></li>
+            <li><a href="#d">Circuit Documentation</a></li>
+            <li><a href="#e">Code</a></li>
+            <li><a href="#f">Challenges and Solutions</a></li>
+            <li><a href="#g">Future Improvements</a></li>
+        </ul>
+        
+        
+    <main>
+<!--***********************************************************************************************************-->
+
+        <section id="a" >
+            <h2>Introduction</h2>
+            <p>
+                During my first-year summer break, I embarked on an ambitious project to create PGNTA, a humanoid Arduino robot. This project was born out of a fascination with robotics and a desire to challenge myself in the fields of electronics, programming, and mechanical design. PGNTA, standing at 53 cm tall, represents my first foray into complex robotics and serves as a testament to what can be achieved with determination and a willingness to learn.
+            </p>
+            <a href="index.html">
+            <img src="webimages/1.webp" alt="PGNTA Version 1" clas="half-width-image" width="300" height="300">
+            </a>
+        </section>
+<!--***********************************************************************************************************-->
+        <section id="b">
+            <h2>Project Overview</h2>
+            <p>PGNTA is a 17 Degree of Freedom (DOF) humanoid robot powered by an ESP32 microcontroller. Built primarily from wooden plywood, it combines servo motors, sensors, and custom-designed joints to create a functional bipedal structure.</p>
+            
+            <h3>Key Features:</h3>
+            <ul>
+                <li>17 DOF using <a href="webimages/hardware/mg995.webp">MG995</a> and <a href="webimages/hardware/sg90.webp">SG90</a> servo motors</li>
+                <li> <a href="webimages/hardware/esp32.webp"> ESP32</a> a microcontroller for main control</li>
+                <li>Custom wooden plywood frame</li>
+                <li>Ultrasonic sensor (<a href="webimages/hardware/hcsr04.webp">HC-SR04</a>) and (<a href="webimages/hardware/mpu6050.webp">MPU6050</a>) for balance and object detection</li>
+                <li>Arduino Cloud integration for live data fetching</li>
+                <li>Dimensions: 53 cm height, 25 cm length, 8 cm width</li>
+            </ul>
+            
+            <img src="webimages/2.webp" alt="Overview" height ="500" width = "" >
+
+
+            
+            <h3>Objectives:</h3>
+            <ol>
+                <li>Design and build a functional humanoid robot using Arduino technology</li>
+                <li>Gain practical experience in servo motor control and power management</li>
+                <li>Explore challenges in balance and movement for bipedal structures</li>
+                <li>Create a platform for future enhancements and learning in robotics</li>
+                <li>Integrate sensors and cloud connectivity for advanced functionality</li>
+            </ol>
+            
+            <img src="webimages/4.webp" alt="Robot during construction" height="200" width ="" >
+
+        </section>
+<!--***********************************************************************************************************-->
+<section id="c">
+    <h2>Development Process</h2>
+    
+    <h3>1. Component Selection</h3>
+    <p>The construction of PGNTA involved careful selection of components to balance functionality, cost, and availability. The key components included:</p>
+    <ul>
+        <li>Servo Motors: 14 <a href="webimages/hardware/mg995.webp">MG995</a> A high-torque servos for major joints and 3 <a href="webimages/hardware/sg90.webp">SG90</a> servos for less demanding movements</li>
+        <li>Microcontroller: <a href="webimages/hardware/esp32.webp">ESP 32</a> for main control</li>
+        <li>Sensors: Ultrasonic sensor (<a href="webimages/hardware/hcsr04.webp">HC-SR04</a>) for object detection and <a href="webimages/hardware/mpu6050.webp">MPU6050</a> for acceleration and gyroscopic data</li>
+        <li>Additional electronics: <a href="webimages/hardware/pca9685.webp">PCA 9685</a> 16-channel servo driver, Arduino Nano for interfacing with servo control software</li>
+    </ul>
+    <A href="webimages/hardware/" >
+    <img src="webimages/hardware/all.webp" alt="Component layout" height ="300" width="" >    
+    </A>
+    <h3>2. Structural Design</h3>
+    <p>PGNTA's structure was primarily built using 3mm wooden plywood, chosen for its availability, ease of modification, and cost-effectiveness. The robot's frame consists of:</p>
+    <ul>
+        <li>Central body: 14x11 cm plywood housing core servos</li>
+        <li>Limbs: Custom box-like structures using smaller plywood pieces</li>
+        <li>Joints: C-shaped hinge joints created from plywood for flexibility</li>
+        <li>Head: 6x3x5 cm cube-shaped structure housing sensors</li>
+    </ul>
+    <p>The frame was constructed using the following techniques:</p>
+       <img src="webimages/0.webp" height ="400" width="" >
+    <ul>
+        <li>Rectangular plywood pieces were cut and joined using adhesive</li>
+        <li>Each servo was secured with four 2mm screws and nuts</li>
+        <li>7mm holes were drilled for servo horns</li>
+        <li>Additional support was provided using nails on the opposite side of servo horns</li>
+    </ul>
+    <br>
+    
+    <h3>3. Servo Configuration</h3>
+    <p>The 17 servos were strategically placed to mimic human joint movements:</p>
+    <ul>
+        <li>Legs (10 servos): LL1-LL5 and RL1-RL5</li>
+        <li>Arms (6 servos): LH1-LH3 and RH1-RH3</li>
+        <li>Head (1 servo): For rotational movement</li>
+    </ul>
+        
+    <h3>4. Power Management</h3>
+    <p>Initial power supply using 9V batteries proved insufficient. The final solution involved:</p>
+    <ul>
+        <li>Six 18650 2000mAh 3.7V batteries</li>
+        <li>Configuration: 2 parallel sets of 3 batteries in series</li>
+        <li>Output: Approximately 11.5V with higher current capacity</li>
+        <li>DC-DC Buck converter providing 5V output</li>
+    </ul>
+    <img src="webimages/hardware/battery.webp" alt="Power Management" height ="200">    
+    
+    <h3>5. Programming and Control</h3>
+    <ul>
+        <li>Arduino IDE was used for programming</li>
+        <li>PWM control implemented for servo movements</li>
+        <li>Tim's Servo x16 Controller utilized for fine-tuning servo positions</li>
+        <li>Integration with Arduino Cloud for remote monitoring and control</li>
+    </ul>
+</section>
+
+<!--*******************************************************************************-->
+
+<section id ="d">
+    <h2>Circuit Documentation</h2>
+            <h3>ESP32 Version</h3>
+            <p>This circuit manages precise servo motor movements using an Adafruit PCA9685 PWM Servo Breakout board, interfaced with an ESP32 microcontroller.</p>
+            
+            <h4>Component List:</h4>
+            <ul>
+                <li>ESP32: Interfaces with the servo control software and manages PWM signals.</li>
+                <li>18650 Li-ion Batteries: Rechargeable batteries providing the power source.</li>
+                <li>Adafruit PCA9685 PWM Servo Breakout: 16-channel, 12-bit PWM I2C-controlled servo driver.</li>
+                <li>Servos: Actuators precisely controlled for position.</li>
+                <li>Terminal PCB 2 Pin: Connectors for power supply.</li>
+                <li>Electrolytic Capacitor: 25V 100μF capacitor for voltage smoothing.</li>
+                <li>Ultrasonic Sensor (HC-SR04): For object detection.</li>
+                <li>MPU6050: For acceleration and gyroscopic data.</li>
+                <li>Circular LED: Connected to the ESP32 for visual indication.</li>
+            </ul>
+            
+            <h4>Wiring Details:</h4>
+            <p>(Detailed wiring information for ESP32, sensors, and servos)</p>
+                       
+        <h3>Arduino Nano Version</h3>
+            <p>This circuit is an alternative version using an Arduino Nano microcontroller.</p>
+            
+            <h4>Component List:</h4>
+            <ul>
+                <li>Arduino Nano: Based on the ATmega328, interfacing with the servo control software.</li>
+                <li>18650 Li-ion Batteries: Rechargeable batteries providing the power source.</li>
+                <li>Adafruit PCA9685 PWM Servo Breakout: 16-channel, 12-bit PWM I2C-controlled servo driver.</li>
+                <li>Servos: Actuators precisely controlled for position.</li>
+                <li>Terminal PCB 2 Pin: Connectors for power supply.</li>
+                <li>Electrolytic Capacitor: 25V 100μF capacitor for voltage smoothing.</li>
+            </ul>
+            
+            <h4>Wiring Details:</h4>
+            <p>(Detailed wiring information for Arduino Nano, sensors, and servos)</p>
+            <a href="webimages/circuit/">
+            <img src="webimages\circuit\commoncircuit.webp" alt="Circuit diagram" height="250" width="400"> 
+            </a>
+</section>
+<!-- *************************************************************************************-->
+<section id="e">
+    <h3>Code</h3>
+    <p> will be uploaded soon on my github account </p>
+    <ul>
+        <li> <a href="esp.ino" >ESP 32 Version</a> </li>
+        <li> <a href ="nano.ino">Arduino Nano Version</a> </li>
+    </ul>
+</section>
+<br>
+
+<!-- ************************************************************************************************-->
+ <section id="f">
+    <h2>Challenges & Solutions</h2>
+    <ol>
+        <li><h4>Servo Movement Limitations:</h4>
+            <p> Challenges : MG995 servos mechanically limited to 0-180 degrees<br> 
+                Solutions : Used Tim's Servo x16 Controller software to fine-tune servo positions and advanced Created preset configurations and scripts for movements
+            </p>
+        </li>
+        <li>
+            <h4>Power Supply Issues</h4>
+            <p> Challenge : Initial power supply (9V batteries) insufficient for high current draw<br> 
+               Solution : Switched to 18650 Li-ion batteries for higher current capacity Implemented a 2S3P configuration for balanced voltage and current
+            </p>
+        </li>
+        <li>
+            <h4>Weight Management</h4>
+            <p>Challenge : Excessive weight due to 3mm plywood frame <br>
+            Solution : Future versions to consider lighter materials & Ongoing optimization of design for weight reduction
+            </p>
+        </li>
+        <li>
+            <h4>Assembly Mistakes</h4>
+            <p>Challenges : Servos joined to body without prior testing, restricting some motions <br>
+                Solution : Learned importance of component testing before final assembly & Future iterations to include modular design for easier modifications
+            </p>
+        </li>
+        <li>
+            <h4>Wiring and Connections</h4>
+            <p>Challenge: Improper soldering of pins in PWM 9685 boards caused connection issues<br>
+                Solutions : Re-soldered connections using 30-watt soldering iron & Gained hands-on soldering experience
+            </p>
+        </li>
+    </ol>
+ </section>
+ <!--*********************************************************************-->
+ <section id="g">
+ <p>
+    <h3>Current Capabilities</h3>
+    
+        <ul>
+            <li>Arm movements: up, down, front</li>
+            <li>Simple dance routines</li>
+            <li>Basic gestures like waving "hi"</li>
+            <li>Head movement with object detection</li>
+            <li>Ardunio Cloud Integration for live data fetching</li>
+        </ul>
+    <h3>Future Improvements (Planned Phases)</h3>
+
+<h4>Version 2</h4>
+    <ul>
+        <li>Implement web-based control interface</li>
+        <li>Enhance movement fluidity and range</li>
+    </ul>
+<h4>Version 3</h4>
+    <ul>
+        <li>Integrate ESP32-CAM module for image detection</li>
+        <li>Implement real-time movement following human actions</li>
+    </ul>
+<h4>Version 4</h4>
+<ul>
+    <li>Integrate AI API for advanced interactions</li>
+    <li>Implement voice control and natural language processing</li>
+</ul>
+
+
+    
+ 
+
+
+
+ </section>
+
+
+
+
+
+
+
+
+        
+
+
+
+            
+        
+
+
+
+
+    
+
     </body>
 </html>
