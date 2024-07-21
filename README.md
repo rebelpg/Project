@@ -204,7 +204,7 @@ Circuit Documentation for Arduino Nano [Click here](code/nano.html)
       <td><a href="https://www.linkedin.com/posts/prashant7579_arduinoproject-robotics-humanoidrobot-activity-7220639796921085952-nnRn?utm_source=share&utm_medium=member_desktop">
       <img src="webimages/logo/ld.png" height="40" width="50">
       </a></td>
-      <td><a href="https://github.com/rebelpg/project" >
+      <td><a href="https://rebelpg.github.io/project/" >
       <img src="webimages/logo/git.png" height="40" width ="">
       </a></td>
       <td><a href="https://www.youtube.com/@rebelpg7579" >
