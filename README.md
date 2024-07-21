@@ -104,8 +104,8 @@ This circuit is an alternative version using an Arduino Nano microcontroller.
 
 ## Code
 Will be uploaded soon on my GitHub account
-- [ESP32 Version](esp32_iot.ino)
-- [Arduino Nano Version](nano.html)
+- [ESP32 Version](code/esp32_iot.ino)
+- [Arduino Nano Version](code/nano.html)
 
 ## Challenges & Solutions
 1. **Servo Movement Limitations:**
